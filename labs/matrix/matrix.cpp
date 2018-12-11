@@ -61,6 +61,11 @@ Matrix& Matrix::operator=(const Matrix& rhs) //?
 		return *this;
 	}
 	else if ((rows_ != rhs.rows_) || (collumns_ != rhs.collumns_) ){
+		for (int i = 0; i < rows_; i += 1)
+		{
+			delete[] _data[i];
+		}
+		delete[] _data;
 		_data = new double*[rhs.rows_];
 		for (int i = 0; i < rows_; i += 1) {
 			_data[i] = new double[rhs.collumns_];
