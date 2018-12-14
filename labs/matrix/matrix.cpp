@@ -27,21 +27,22 @@ Matrix::Matrix(const int rows, const int collumns) {
 bool Matrix::operator==(const Matrix& rhs)
 {
 	bool resalt(true);
-	if ((rows_ != rhs.rows_) || (collumns_ != rhs.collumns_)) {
-		resalt = false;
-	}
-	else {
-		for (int i = 0; i < rhs.rows_; i += 1) {
-			for (int j = 0; j < rhs.collumns_; j += 1) {
-				if (_data[i][j] != rhs._data[i][j]) {
-					resalt = false;
+	if (*this != rhs) {
+		if ((rows_ != rhs.rows_) || (collumns_ != rhs.collumns_)) {
+			resalt = false;
+		}
+		else {
+			for (int i = 0; i < rhs.rows_; i += 1) {
+				for (int j = 0; j < rhs.collumns_; j += 1) {
+					if (_data[i][j] != rhs._data[i][j]) {
+						resalt = false;
+					}
 				}
 			}
 		}
 	}
 	return resalt;
 }
-
 bool Matrix::operator!=(const Matrix& rhs) {
 	return !(operator==(rhs));
 }
