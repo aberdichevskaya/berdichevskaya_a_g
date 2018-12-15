@@ -43,12 +43,12 @@ bool Matrix::operator==(const Matrix& rhs)
 	}
 	return resalt;
 }
+
 bool Matrix::operator!=(const Matrix& rhs) {
 	return !(operator==(rhs));
 }
 
-Matrix& Matrix::operator=(const Matrix& rhs) 
-{
+Matrix& Matrix::operator=(const Matrix& rhs) {
 	if (&rhs != this) {
 		if ((rows_ != rhs.rows_) || (collumns_ != rhs.collumns_)) {
 			for (int i = 0; i < rows_; i += 1) {
@@ -92,19 +92,16 @@ int Matrix::GetCollumns() {
 	return collumns_;
 }
 
-double& Matrix::At(const int row, const int collumn) const
-{
+double& Matrix::At(const int row, const int collumn) const {
 	if ((row < 0) || (row >= this->rows_) || (collumn < 0) || (collumn >= this->collumns_)) {
 		throw std::invalid_argument("Wrong index");
 	}
 	else {
 		return _data[row][collumn];
 	}
-
 }
 
-double& Matrix::At(int row, int collumn)
-{
+double& Matrix::At(int row, int collumn) {
 	if ((row < 0) || (row >= this->rows_) || (collumn < 0) || (collumn >= this->collumns_)) {
 		throw std::invalid_argument("Wrong index");
 	}
