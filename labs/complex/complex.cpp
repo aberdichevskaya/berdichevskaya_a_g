@@ -1,10 +1,20 @@
-#include "complex.h"
-
 #include<iostream>
 #include<sstream>
 
+#include "complex.h"
+
+Complex::Complex(const double real, const double imaginary)
+	: re(real)
+	, im(imaginary)
+{}
+
+Complex::Complex(const double real)
+	: Complex(real, 0.0)
+{}
+
+
 bool Complex::operator==(const Complex& rhs) {
-	return (re == rhs.re) && (im == rhs.im);
+	return ((re == rhs.re) && (im == rhs.im));
 }
 
 bool Complex::operator!=(const Complex& rhs) {
@@ -27,28 +37,17 @@ std::istream& operator>>(std::istream& istrm, Complex& rhs) {
 	return rhs.readFrom(istrm);
 }
 
-Complex::Complex(const double real, const double imaginary)
-	: re(real)
-	, im(imaginary)
-{}
-
-Complex::Complex(const double real)
-	: Complex(real, 0.0)
-{}
-
-
 Complex& Complex::operator+=(const Complex& rhs) {
 	re += rhs.re;
 	im += rhs.im;
 	return *this;
 }
 
-Complex operator+(const Complex& lhs, const Complex& rhs)  {
+Complex operator+(const Complex& lhs, const Complex& rhs) {
 	Complex sum(lhs);
 	sum += rhs;
 	return sum;
 }
-
 
 Complex& Complex::operator-=(const Complex& rhs) {
 	re -= rhs.re;
@@ -56,7 +55,7 @@ Complex& Complex::operator-=(const Complex& rhs) {
 	return *this;
 }
 
-Complex operator-(const Complex& lhs, const Complex& rhs)  {
+Complex operator-(const Complex& lhs, const Complex& rhs) {
 	return Complex(lhs.re - rhs.re, lhs.im - rhs.im);
 }
 
