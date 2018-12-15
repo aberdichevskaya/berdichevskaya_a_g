@@ -3,9 +3,8 @@
 #include "queue.h"
 
 Queue::Queue(const Queue& data)
-	:i_first(data.i_first)
-	,i_last(data.i_last)
-{
+	: i_first(data.i_first)
+	, i_last(data.i_last) {
 	for (int i = 0; i < size_; i += 1) {
 		data_[i] = data.data_[i];
 	}
@@ -17,9 +16,11 @@ Queue::~Queue() {
 
 bool Queue::operator==(const Queue& rhs) {
 	bool answer(true);
-	for (int i = 0; i < size_; i += 1) {
-		if (data_[i] != rhs.data_[i]) {
-			answer = false;
+	if (*this != rhs) {
+		for (int i = 0; i < size_; i += 1) {
+			if (data_[i] != rhs.data_[i]) {
+				answer = false;
+			}
 		}
 	}
 	return answer;
@@ -43,13 +44,13 @@ Queue& Queue::operator=(const Queue& rhs) {
 }
 
 void Queue::Push(int value) {
-	if (*i_last < size_) {
+	if (i_last-1 != &data_[size_-1]) {
 		*i_last = value;
 		i_last = i_last + 1;
 	}
 	else {
-		if (i_first > 0) {
-			*i_last %= size_;
+		if (i_first != &data_[0]) {
+			i_last -= size_;
 			*i_last = value;
 			i_last += 1;
 		}
@@ -59,47 +60,65 @@ void Queue::Push(int value) {
 	}
 }
 
-void Queue::Pop() noexcept {
-	if (*i_first < size_) {
-		*i_first = 0;
-		i_first += 1;
+bool Queue::IsEmpty() {
+	return ((i_last - i_first) == 0);
+}
+
+void Queue::Pop() {
+	if (!IsEmpty()) {
+		if (i_first != &data_[size_ - 1]) {
+			*i_first = 0;
+			i_first += 1;
+		}
+		else {
+			i_first -= size_;
+			*i_first = 0;
+			i_first += 1;
+		}
 	}
 	else {
-		*i_first %= size_;
-		*i_first = 0;
-		i_first += 1;
+		throw std::out_of_range("Queue is empty");
 	}
 }
 
 int Queue :: Front() {
-	int ans(0);
-	if (*i_first < size_) {
-		ans = *i_first;
+	if (IsEmpty()) {
+		throw std::out_of_range("Queue is empty");
 	}
 	else {
-		*i_first %= size_;
-		ans = *i_first;
+		return *i_first;
 	}
-	return ans;
 }
 
 int Queue::Back() {
-	int ans(0);
-	if (*i_last <= size_) {
-		ans = *(i_last - 1);
+	if (IsEmpty()) {
+		throw std::out_of_range("Queue is empty");
 	}
 	else {
-		*i_last %= size_;
-		ans = *(i_last - 1);
+		return *(i_last - 1);
 	}
-	return ans;
 }
 
-bool Queue :: IsEmpty() {
-	return ((i_last - i_first) == 0);
+std::ostream& Queue::WriteTo(std::ostream& ostr) const {
+	if (i_last == i_first) {
+		throw std::logic_error("Queue is empty");
+	}
+	int* print = i_first;
+	while (print < i_last)
+	{
+		ostr << *print;
+		print++;
+		if (print == &data_[size_ - 1]) {
+			print -= size_;
+		}
+		if (print < i_last) {
+			ostr << ", ";
+		}
+	}
+	return ostr;
 }
 
-
-
-
+std::ostream& operator<<(std::ostream& ostr, const Queue& rhs) {
+	return rhs.WriteTo(ostr);
+}
 
