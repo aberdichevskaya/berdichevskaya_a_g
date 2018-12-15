@@ -1,33 +1,38 @@
-#include "complex.h"
 #include <iostream>
 #include <sstream>
 
+#include "complex.h"
 
-bool testParse(const std::string& str)
-{
-	using namespace std;
-	istringstream istrm(str);
+bool testParse(const std::string& str) {
+	std::istringstream istrm(str);
 	Complex z;
 	istrm >> z;
-	if (istrm.good())
-	{
-		cout << "Read succes:" << str << "->" << z << endl;
+	if (istrm.good()) {
+		std::cout << "Read succes:" << str << "->" << z << std::endl;
 	}
-	else
-	{
-		cout << "Read error:" << str << "<-" << z << endl;
+	else {
+		std::cout << "Read error:" << str << "<-" << z << std::endl;
 	}
 	return istrm.good();
 }
 
-int main()
-{
-	using namespace std;
-
+int main() {
 	Complex z;
 	z += Complex(8.0);
+
 	testParse("{8.9,9}");
 	testParse("{8.9, 9}");
 	testParse("{8.9,9");
+
+	Complex a(3.5);
+	Complex b(2.1, 7.9);
+	double c(4.9);
+	std::cout << "a = " << a << ", b = " << b << std::endl;
+	std::cout << "a + b = " << a + b << std::endl;
+	std::cout << "b - a = " << b - a << std::endl;
+	b += a;
+	std::cout << "b + a = " << b << std::endl;
+	a *= c;
+	std::cout << "a * c = " << a << std::endl;
 	return 0;
 }
