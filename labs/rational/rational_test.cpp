@@ -34,7 +34,7 @@ int main() {
 	try {
 		Rational d(5, 0);
 	}
-	catch (std::out_of_range exc) {
+	catch (std::out_of_range& exc) {
 		std::cout << exc.what() << std::endl;
 	}
 
@@ -42,7 +42,7 @@ int main() {
 		std::string a("{6/0}");
 		testParse(a);
 	}
-	catch (std::out_of_range exc) {
+	catch (std::out_of_range& exc) {
 		std::cout << exc.what() << std::endl;
 	}
 	return 0;
