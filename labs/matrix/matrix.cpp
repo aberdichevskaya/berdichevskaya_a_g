@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "Matrix.h"
+#include "matrix.h"
 
 Matrix::~Matrix() {
 	for (int i = 0; i < rows_; i += 1) {
