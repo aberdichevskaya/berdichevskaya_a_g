@@ -1,8 +1,36 @@
-#include "rational.h"
 #include<iostream>
 #include <sstream>
 
-Rational& Rational::operator-=(int rhs) {
+#include "rational.h"
+
+int Rational::gcd(int n, int d) {
+	n = abs(n);
+	d = abs(d);
+	while ((n != 0) && (d != 0)) {
+		if (d >= n) {
+			d %= n;
+		}
+		else {
+			n %= d;
+		}
+	}
+	if (n == 0) {
+		return d;
+	}
+	else {
+		return n;
+	}
+}
+
+bool Rational::operator==(const Rational& rhs) {
+	return ((num == rhs.num) && (den == rhs.den));
+}
+
+bool Rational::operator!=(const Rational& rhs) {
+	return !operator==(rhs);
+}
+
+Rational& Rational::operator-=(int rhs){
 return operator-=(Rational(rhs));
 }
 
@@ -14,28 +42,40 @@ Rational& Rational::operator+=(const int rhs) {
 	return operator+= (Rational(rhs));
 }
 
-inline std::ostream& operator<<(std::ostream& ostrm, const Rational& rhs) {
+std::ostream& operator<<(std::ostream& ostrm, const Rational& rhs) {
 	return rhs.WriteTo(ostrm);
 }
-inline std::istream& operator>>(std::istream& istrm, Rational& rhs) {
+std::istream& operator>>(std::istream& istrm, Rational& rhs) {
 	return rhs.ReadFrom(istrm);
 }
 
 Rational::Rational(const int numerator, const int denominator)
 	: num(numerator)
-	, den(denominator)
-{}
+	, den(denominator) {
+	if (den == 0) {
+		throw std::out_of_range("Division by zero");
+	}
+	else {
+		int nod = gcd(num, den);
+		num /= nod;
+		den /= nod;
+	}
+}
 
 Rational::Rational(const int numerator)
 	: Rational(numerator, 1)
 {}
+
 Rational& Rational::operator+=(const Rational& rhs) {
 	num = num * rhs.den + den * rhs.num;
 	den = den * rhs.den;
+	int nod = gcd(num, den);
+	num /= nod;
+	den /= nod;
 	return *this;
 }
 
-Rational operator+(const Rational lhs, const Rational rhs) {
+Rational operator+(const Rational& lhs, const Rational& rhs) {
 	Rational sum(lhs);
 	sum += rhs;
 	return sum;
@@ -44,10 +84,13 @@ Rational operator+(const Rational lhs, const Rational rhs) {
 Rational& Rational::operator-=(const Rational& rhs) {
 	num = num * rhs.den - den * rhs.num;
 	den = den * rhs.den;
+	int nod = gcd(num, den);
+	num /= nod;
+	den /= nod;
 	return *this;
 }
 
-Rational operator-(const Rational lhs, const Rational rhs) {
+Rational operator-(const Rational& lhs, const Rational& rhs) {
 	Rational dif(lhs);
 	dif -= rhs;
 	return dif;
@@ -56,15 +99,31 @@ Rational operator-(const Rational lhs, const Rational rhs) {
 Rational& Rational::operator*=(const Rational& rhs) {
 	num *= rhs.num;
 	den *= rhs.den;
+	int nod = gcd(num, den);
+	num /= nod;
+	den /= nod;
 	return *this;
 }
 
-
+Rational operator*(const Rational& lhs, const Rational& rhs) {
+	Rational w(lhs);
+	w *= rhs;
+	return w;
+}
 
 Rational& Rational::operator/=(const Rational& rhs) {
 	num *= rhs.den;
 	den *= rhs.num;
+	int nod = gcd(num, den);
+	num /= nod;
+	den /= nod;
 	return *this;
+}
+
+Rational operator/(const Rational& lhs, const Rational& rhs) {
+	Rational w(lhs);
+	w /= rhs;
+	return w;
 }
 
 std::ostream& Rational::WriteTo(std::ostream& ostrm) const {
@@ -81,9 +140,21 @@ std::istream& Rational::ReadFrom(std::istream& istrm) {
 
 	istrm >> leftBrace >> numerator >> slash >> denominator >> righrBrace;
 	if (istrm.good()) {
-		if ((leftBrace == Rational::leftBrace) && (slash == Rational::slash) && (righrBrace == Rational::rightBrace) && (denominator != 0)) {
-			num = numerator;
-			den = denominator;
+		if ((leftBrace == Rational::leftBrace) && (slash == Rational::slash) && (righrBrace == Rational::rightBrace)) {
+			if (denominator == 0) {
+				throw std::out_of_range("Division by zero");
+			}
+			else {
+				num = numerator;
+				den = denominator;
+				if (den < 0) {
+					den = abs(den);
+					num *= -1;
+				}
+				int nod = gcd(num, den);
+				num /= nod;
+				den /= nod;
+			}
 		}
 	}
 	else {
