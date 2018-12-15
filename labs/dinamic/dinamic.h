@@ -1,8 +1,7 @@
 #ifndef  DINAMIC_H
 #define DINAMIC_H
 
-class Dinamic_array
-{
+class Dinamic_array {
 private:
 	int size_{ 0 };
 	double* data_{ nullptr };
@@ -17,8 +16,6 @@ public:
 	double& operator[](int i);
 	bool operator==(const Dinamic_array& rhs);
 	bool operator!=(const Dinamic_array& rhs);
-	
-
 };
 
 #endif 
