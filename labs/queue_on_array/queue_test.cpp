@@ -21,20 +21,20 @@ int main() {
 	try {
 		c.Push(5);
 	}
-	catch (std :: out_of_range exc) {
+	catch (std :: out_of_range& exc) {
 		std::cout << "Out of range error: " << exc.what() << std::endl;
 	}
 	Queue s;
 	try {
 		s.Front();
 	}
-	catch (std::out_of_range exc) {
+	catch (std::out_of_range& exc) {
 		std::cout << "Out of range error: " << exc.what() << std::endl;
 	}
 	try {
 		std::cout << s << std::endl;
 	}
-	catch (std:: logic_error exc){
+	catch (std:: logic_error& exc){
 		std::cout << "Logic error: " << exc.what() << std::endl;
 	}
 	return 0;
