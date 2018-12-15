@@ -4,8 +4,7 @@
 #include <iostream>
 #include <sstream>
 
-struct Complex
-{
+struct Complex {
 	Complex() = default;
 	explicit Complex(const double real);
 	Complex(const double real, const double imadginary);
@@ -27,8 +26,6 @@ struct Complex
 	static const char leftBrace{ '{' };
 	static const char rightBrace{ '}' };
 	static const char separator{ ',' };
-
-
 };
 Complex operator+(const Complex& lhs, const Complex& rhs);
 Complex operator-(const Complex& lhs, const Complex& rhs);
