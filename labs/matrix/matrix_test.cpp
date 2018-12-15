@@ -2,8 +2,33 @@
 
 #include "matrix.h"
 
-int main()
-{
+int main() {
+	Matrix a(5, 5);
+	for (int i = 0; i < a.GetRows(); i += 1) {
+		for (int j = 0; j < a.GetCollumns(); j += 1) {
+			a.At(i, j) = i * j*1.0;
+		}
+	}
+	Matrix b(a);
+	std::cout << "number of rows of b = " << b.GetRows() << std::endl;
+	std::cout << "number of collumns of b = " << b.GetCollumns() << std::endl;
+	std::cout << "b before changing: \n";
+	for (int i = 0; i < b.GetRows(); i += 1) {
+		for (int j = 0; j < b.GetCollumns(); j += 1) {
+			std::cout << b.At(i, j) << " ";
+		}
+		std::cout << std::endl;
+	}
+	b.At(0, 2) = -1.8;
+	b.At(0, 4) = -66.9;
+	std::cout << "b after changing: \n";
+	for (int i = 0; i < b.GetRows(); i += 1) {
+		for (int j = 0; j < b.GetCollumns(); j += 1) {
+			std::cout << b.At(i, j) << " ";
+		}
+		std::cout << std::endl;
+	}
+
 	try {
 		Matrix matrix1();
 		Matrix matrix2(-1, 6);
@@ -16,5 +41,6 @@ int main()
 	{
 		std::cout << Ex.what() << std::endl;
 	}
-
+	
+	return 0;
 }
