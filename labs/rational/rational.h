@@ -4,25 +4,20 @@
 #include <iostream>
 #include <sstream>
 
-struct Rational
-{
-	Rational() = default;
-	explicit Rational(const int numerator);    //denominator,numerator
-	Rational(const int numerator, const int denominator);
-
+class Rational {
+private:
 	int num{ 0 };
 	int den{ 0 };
 	static const char slash{ '/' };
 	static const char leftBrace{ '{' };
 	static const char rightBrace{ '}' };
-	bool operator==(const Rational& rhs)
-	{
-		return ((double)num / den == (double)rhs.num / rhs.den);
-	}
-	bool operator!=(const Rational& rhs)
-	{
-		return !operator==(rhs);
-	}
+
+public:
+	Rational() = default;
+	explicit Rational(const int numerator);    
+	Rational(const int numerator, const int denominator);
+	bool operator==(const Rational& rhs);
+	bool operator!=(const Rational& rhs);
 	Rational& operator+=(const Rational& rhs);
 	Rational& operator+=(const int rhs);
 	Rational& operator-=(const Rational& rhs);
@@ -34,11 +29,16 @@ struct Rational
 	std::ostream& WriteTo(std::ostream& ostrm) const;
 	std::istream& ReadFrom(std::istream& istrm);
 
+	int gcd(int n, int d);
 };
 
-Rational operator+(const Rational lhs, const Rational rhs);
-Rational operator-(const Rational lhs, const Rational rhs);
+Rational operator+(const Rational& lhs, const Rational& rhs);
+Rational operator-(const Rational& lhs, const Rational& rhs);
+Rational operator*(const Rational& lhs, const Rational& rhs);
+Rational operator/(const Rational& lhs, const Rational& rhs);
 
-inline std::ostream& operator<<(std::ostream& ostrm, const Rational& rhs);
-inline std::istream& operator>>(std::istream& istrm, Rational& rhs);
+std::ostream& operator<<(std::ostream& ostrm, const Rational& rhs);
+std::istream& operator>>(std::istream& istrm, Rational& rhs);
+
+
 #endif
