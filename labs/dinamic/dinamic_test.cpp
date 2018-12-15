@@ -25,14 +25,14 @@ int main() {
 	try {
 		Dinamic_array arr5(-2);
 	}
-	catch (std::invalid_argument exc) {
+	catch (std::invalid_argument& exc) {
 		std::cout << exc.what() << std::endl;
 	}
 
 	try {
 		int f = arr2[8];
 	}
-	catch (std::invalid_argument exc) {
+	catch (std::invalid_argument& exc) {
 		std::cout << exc.what() << std::endl;
 	}
 
