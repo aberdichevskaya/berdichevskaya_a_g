@@ -15,7 +15,7 @@ int main() {
 	std::cout << "Stack b: " << b << std::endl;
 	b.Clear();
 	if (b.IsEmpty()) {
-		std::cout << "b is clear";
+		std::cout << "b is clear" << std::endl;
 	}
 	try {
 		b.Pop();
