@@ -9,9 +9,9 @@ int main() {
 	}
 	std::cout << "Stack a: " << a << std::endl;
 	StackOnList b(a);
-	std::cout << "Top of b: " << b.Top() << std::endl;
+	std::cout << "Top of b before : " << b.Top() << std::endl;
 	b.Pop();
-	std::cout << "Top of b: " << b.Top() << std::endl;
+	std::cout << "Top of b after : " << b.Top() << std::endl;
 	std::cout << "Stack b: " << b << std::endl;
 	b.Clear();
 	if (b.IsEmpty()) {
@@ -20,7 +20,7 @@ int main() {
 	try {
 		b.Pop();
 	}
-	catch (std::logic_error exc) {
+	catch (std::logic_error& exc) {
 		std::cout << "Logic error: " << exc.what() << std:: endl;
 	}
 	return 0;
