@@ -22,6 +22,7 @@ private:
 	{
 		Node* next{ nullptr };
 		int data{ 0 };
+		Node() = default;
 		Node(Node* p, int d)
 			:next(p)
 			, data(d)
@@ -30,7 +31,6 @@ private:
 	Node* data_{ nullptr };
 };
 
-std::ostream& operator <<(std::ostream& ostr, const StackOnList& rhs) {
-	return rhs.WriteTo(ostr);
-}
+std::ostream& operator <<(std::ostream& ostr, const StackOnList& rhs);
+
 #endif
