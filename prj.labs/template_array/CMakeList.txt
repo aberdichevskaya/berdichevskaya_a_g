@@ -1,0 +1,5 @@
+add_executable(Template_array
+	template_array_test.cpp 
+	template_array.h 
+  )
+set_property(TARGET Template_array PROPERTY CXX_STANDARD 14)
