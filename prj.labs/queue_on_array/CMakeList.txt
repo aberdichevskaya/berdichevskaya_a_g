@@ -1,2 +1,2 @@
-add_executable(queue queue.cpp)
+add_executable(queue queue.cpp queue.h queue_test.cpp)
 set_property(TARGET queue PROPERTY CXX_STANDARD 14)
