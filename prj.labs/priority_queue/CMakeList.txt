@@ -1,0 +1,3 @@
+add_executable(priority_queue prioryti_queue.cpp prioryti_queue.h prioryti_queue_test.cpp)
+
+set_property(TARGET prioryti_queue PROPERTY CXX_STANDARD 14)
