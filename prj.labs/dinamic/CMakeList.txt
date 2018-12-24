@@ -1,0 +1,2 @@
+add_executable(dinamic dinamic.cpp dinamic.h dinamic_test.cpp)
+set_property(TARGET dinamic PROPERTY CXX_STANDARD 14)
