@@ -1,0 +1,2 @@
+add_executable(stack stack.cpp stack.h stack_test.cpp)
+set_property(TARGET stack PROPERTY CXX_STANDARD 14)
