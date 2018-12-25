@@ -7,7 +7,7 @@
 class Rational {
 private:
 	int num{ 0 };
-	int den{ 0 };
+	int den{ 1 };
 	static const char slash{ '/' };
 	static const char leftBrace{ '{' };
 	static const char rightBrace{ '}' };
