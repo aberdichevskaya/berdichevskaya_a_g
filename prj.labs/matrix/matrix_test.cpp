@@ -1,46 +1,34 @@
-#include <iostream>
+#include <conio.h>
 
 #include "matrix.h"
 
 int main() {
-	Matrix a(5, 5);
-	for (int i = 0; i < a.GetRows(); i += 1) {
-		for (int j = 0; j < a.GetCollumns(); j += 1) {
-			a.At(i, j) = i * j*1.0;
-		}
+	Matrix a;
+	Matrix b(3, 5);
+	b.At(1, 2) = 6;
+	Matrix c(b);
+	if (c == b) {
+		std::cout << "c equals b \n";
+		std::cout << "element (1, 2) of c and b: " << c.At(1, 2) << std::endl;
 	}
-	Matrix b(a);
-	std::cout << "number of rows of b = " << b.GetRows() << std::endl;
-	std::cout << "number of collumns of b = " << b.GetCollumns() << std::endl;
-	std::cout << "b before changing: \n";
-	for (int i = 0; i < b.GetRows(); i += 1) {
-		for (int j = 0; j < b.GetCollumns(); j += 1) {
-			std::cout << b.At(i, j) << " ";
-		}
-		std::cout << std::endl;
+	std::cout << "c's rows: " << c.GetRow() << " c's collumns: " << c.GetCollumn() << std::endl;
+	c = c;
+	a = b = c;
+	if (a == c) {
+		std::cout << "now a equals b \n";
 	}
-	b.At(0, 2) = -1.8;
-	b.At(0, 4) = -66.9;
-	std::cout << "b after changing: \n";
-	for (int i = 0; i < b.GetRows(); i += 1) {
-		for (int j = 0; j < b.GetCollumns(); j += 1) {
-			std::cout << b.At(i, j) << " ";
-		}
-		std::cout << std::endl;
-	}
-
 	try {
-		Matrix matrix1();
-		Matrix matrix2(-1, 6);
-		Matrix matrix3(5, 8);
-		Matrix matrix4(matrix3);
-		Matrix matrix5(3, 4);
-		matrix4 = matrix5 = matrix3;
+		a.At(56, 89) = 9;
 	}
-	catch (std :: invalid_argument& Ex)
-	{
-		std::cout << Ex.what() << std::endl;
+	catch (std::exception& ex) {
+		std::cout << ex.what() << std::endl;
 	}
-	
+	try {
+		Matrix o(-1, -6);
+	}
+	catch (std::exception& ex) {
+		std::cout << ex.what() << std::endl;
+	}
+	_getch();
 	return 0;
 }
