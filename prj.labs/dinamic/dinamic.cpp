@@ -6,6 +6,7 @@
 Dinamic_array::Dinamic_array(int size)
 	: size_(size) {
 	if (size >= 0) {
+		data_ = new double[size_];
 		for (int i = 0; i < size; i += 1) {
 			data_[i] = 0;
 		}
@@ -17,8 +18,9 @@ Dinamic_array::Dinamic_array(int size)
 
 Dinamic_array::Dinamic_array(const Dinamic_array& data)
 	: size_ (data.size_) {
+	data_ = new double[size_];
 	for (int i = 0; i < data.size_; i += 1) {
-		data_[i] = data[i];
+		data_[i] = data.data_[i];
 	}
 }
 
@@ -49,33 +51,24 @@ double& Dinamic_array::operator[](int i) {
 
 
 bool Dinamic_array::operator==(const Dinamic_array& rhs) {
-	bool resalt(nullptr);
-	if (*this == rhs) {
-		resalt = true;
+	bool resalt(true);
+	if (size_ != rhs.size_) {
+		resalt = false;
 	}
 	else {
-		if (size_ != rhs.size_) {
-			resalt = false;
-		}
-		else
-			for (int i = 0; i < rhs.size_; i += 1) {
-				if (data_[i] != rhs[i]) {
-					resalt = false;
-				}
+		for (int i = 0; i < rhs.size_; i += 1) {
+			if (data_[i] != rhs.data_[i]) {
+				resalt = false;
+				break;
 			}
-		if (resalt != false) {
-			resalt = true;
 		}
 	}
 	return resalt;
 }
 
-bool Dinamic_array::operator!=(const Dinamic_array& rhs) {
-	return !operator==(rhs);
-}
 
 Dinamic_array& Dinamic_array::operator=(const Dinamic_array& rhs) {
-	if (*this != rhs) {
+	if (!(*this == rhs)) {
 		if (size_ != rhs.size_) {
 			delete[] data_;
 			size_ = rhs.size_;
