@@ -1,28 +1,32 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-class Matrix //private
-{
+#include <iostream>
 
+class Matrix {
 public:
 	Matrix() = default;
-	Matrix(const int rows, const int collumns);
-	Matrix(const Matrix& data);
-	Matrix& operator=(const Matrix& rhs);
-	bool operator==(const Matrix& rhs);
-	bool operator !=(const Matrix& rhs);
+	Matrix(int col, int row);
+	Matrix(const Matrix& rhs);
 	~Matrix();
-	int GetRows();
-	int GetCollumns();
-	double& At(const int row, const int collumn) const;//const
-	double& At(int row, int collumn);
+	bool operator==(const Matrix& rhs) const;
+	Matrix& operator=(const Matrix& rhs);
+	int GetCollumn();
+	int GetRow();
+	int& At(int col, int rows);
+	int& At(int col, int rows) const;
 
 private:
-	double** _data{ nullptr };
-	int rows_{ 0 };
-	int collumns_{ 0 };
+	int** data{ nullptr };
+	int collumn{ 0 };
+	int row{ 0 };
 
 };
+
+
+#endif // !MATRIX_KR_H
+
+
 
 
 #endif 
