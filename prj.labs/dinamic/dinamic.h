@@ -15,7 +15,6 @@ public:
 	const double& operator[] (int i) const;
 	double& operator[](int i);
 	bool operator==(const Dinamic_array& rhs);
-	bool operator!=(const Dinamic_array& rhs);
 };
 
 #endif 
