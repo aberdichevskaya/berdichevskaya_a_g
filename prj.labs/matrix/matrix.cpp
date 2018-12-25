@@ -1,111 +1,107 @@
-#include <iostream>
-
 #include "matrix.h"
 
-Matrix::~Matrix() {
-	for (int i = 0; i < rows_; i += 1) {
-		delete[] _data[i];
+Matrix::Matrix(int col, int row) 
+	: collumn(col)
+	, row(row) {
+	if ((col < 0) || (row < 0)) {
+		throw std::invalid_argument("Uncorrect size");
 	}
-	delete[] _data;
-}
-
-
-Matrix::Matrix(const int rows, const int collumns) {
-	if ((rows < 0) || (collumns < 0))
-		throw std::invalid_argument("Wrong size");
 	else {
-		rows_ = rows;
-		collumns_ = collumns;
-	}
-	for (int i = 0; i < rows; i += 1) {
-		for (int j = 0; j < collumns; j +=1) {
-			_data[i][j] = 0;
+		data = new int*[col];
+		for (int i = 0; i < col; i += 1) {
+			data[i] = new int[row];
+			for (int j = 0; j < row; j += 1) {
+				data[i][j] = 0;
+			}
 		}
 	}
 }
 
-bool Matrix::operator==(const Matrix& rhs)
-{
-	bool resalt(true);
-	if (*this != rhs) {
-		if ((rows_ != rhs.rows_) || (collumns_ != rhs.collumns_)) {
-			resalt = false;
+Matrix::Matrix(const Matrix& rhs) 
+	: collumn(rhs.collumn)
+	, row(rhs.row) {
+	data = new int*[collumn];
+	for (int i = 0; i < collumn; i += 1) {
+		data[i] = new int[row];
+		for (int j = 0; j < row; j += 1) {
+			data[i][j] = rhs.data[i][j];
+		}
+	}
+}
+
+Matrix::~Matrix() {
+	for (int i = 0; i < collumn; i += 1) {
+		delete[] data[i];
+	}
+	delete[] data;
+}
+
+
+bool Matrix::operator==(const Matrix& rhs) const {
+	bool rez(true);
+		if ((collumn != rhs.collumn) || (row != rhs.row)) {
+			rez = false;
 		}
 		else {
-			for (int i = 0; i < rhs.rows_; i += 1) {
-				for (int j = 0; j < rhs.collumns_; j += 1) {
-					if (_data[i][j] != rhs._data[i][j]) {
-						resalt = false;
+			for (int i = 0; i < collumn; i += 1) {
+				for (int j = 0; j < row; j += 1) {
+					if (data[i][j] != rhs.data[i][j]) {
+						rez = false;
+						break;
 					}
 				}
 			}
 		}
-	}
-	return resalt;
+	return rez;
 }
 
-bool Matrix::operator!=(const Matrix& rhs) {
-	return !(operator==(rhs));
-}
 
 Matrix& Matrix::operator=(const Matrix& rhs) {
-	if (&rhs != this) {
-		if ((rows_ != rhs.rows_) || (collumns_ != rhs.collumns_)) {
-			for (int i = 0; i < rows_; i += 1) {
-				delete[] _data[i];
+	if (!(*this == rhs)) {
+		if ((collumn != rhs.collumn) || (row != rhs.row)) {
+			for (int i = 0; i < collumn; i += 1) {
+				delete[] data[i];
 			}
-			delete[] _data;
-			_data = new double*[rhs.rows_];
-			for (int i = 0; i < rows_; i += 1) {
-				_data[i] = new double[rhs.collumns_];
+			delete[] data;
+			collumn = rhs.collumn;
+			row = rhs.row;
+			data = new int*[collumn];
+			for (int i = 0; i < collumn; i += 1) {
+				data[i] = new int[row];
 			}
 		}
-		for (int i = 0; i < rows_; i += 1) {
-			for (int j = 0; j < collumns_; j += 1) {
-				_data[i][j] = rhs._data[i][j];
+		for (int i = 0; i < collumn; i += 1) {
+			for (int j = 0; j < row; j += 1) {
+				data[i][j] = rhs.data[i][j];
 			}
 		}
 	}
 	return *this;
 }
 
-
-Matrix::Matrix(const Matrix& data)
-	: rows_ (data.rows_)
-	, collumns_(data.collumns_) {	
-	_data = new double*[rows_];
-	for (int i = 0; i < rows_; i += 1) {
-		_data[i] = new double[collumns_];
-	}
-	for (int i = 0; i < rows_; i += 1) {
-		for (int j = 0; j < collumns_; j += 1) {
-			_data[i][j] = data._data[i][j];
-		}
-	}
+int Matrix::GetCollumn() {
+	return collumn;
 }
 
-int Matrix::GetRows() {
-	return rows_;
+int Matrix::GetRow() {
+	return row;
 }
 
-int Matrix::GetCollumns() {
-	return collumns_;
-}
-
-double& Matrix::At(const int row, const int collumn) const {
-	if ((row < 0) || (row >= this->rows_) || (collumn < 0) || (collumn >= this->collumns_)) {
-		throw std::invalid_argument("Wrong index");
+int& Matrix::At(int col, int rows) {
+	if ((col < 0) || (col >= collumn) || (rows < 0) || (rows >= row)) {
+		throw std::out_of_range("Uncorrect index");
 	}
 	else {
-		return _data[row][collumn];
+		return data[col][rows];
 	}
 }
 
-double& Matrix::At(int row, int collumn) {
-	if ((row < 0) || (row >= this->rows_) || (collumn < 0) || (collumn >= this->collumns_)) {
-		throw std::invalid_argument("Wrong index");
+
+int& Matrix::At(int col, int rows) const {
+	if ((col < 0) || (col >= collumn) || (rows < 0) || (rows >= row)) {
+		throw std::out_of_range("Uncorrect index");
 	}
 	else {
-		return _data[row][collumn];
+		return data[col][rows];
 	}
 }
