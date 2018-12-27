@@ -12,11 +12,14 @@ Queue::Queue(const Queue& data)
 
 Queue::~Queue() {
 	delete[] data_;
+	i_last = nullptr;
+	i_first = nullptr;
+	size_ = NULL;
 }
 
 bool Queue::operator==(const Queue& rhs) {
 	bool answer(true);
-	if (*this != rhs) {
+	if (this != &rhs) {
 		for (int i = 0; i < size_; i += 1) {
 			if (data_[i] != rhs.data_[i]) {
 				answer = false;
@@ -121,4 +124,9 @@ std::ostream& Queue::WriteTo(std::ostream& ostr) const {
 std::ostream& operator<<(std::ostream& ostr, const Queue& rhs) {
 	return rhs.WriteTo(ostr);
 }
+
+
+
+
+
 
