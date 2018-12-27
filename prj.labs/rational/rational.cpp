@@ -22,6 +22,13 @@ int Rational::gcd(int n, int d) {
 	}
 }
 
+void Rational::minus() {
+	if (den < 0) {
+		den = abs(den);
+		num *= -1;
+	}
+}
+
 bool Rational::operator==(const Rational& rhs) {
 	return ((num == rhs.num) && (den == rhs.den));
 }
@@ -59,6 +66,7 @@ Rational::Rational(const int numerator, const int denominator)
 		int nod = gcd(num, den);
 		num /= nod;
 		den /= nod;
+		minus();
 	}
 }
 
@@ -67,11 +75,18 @@ Rational::Rational(const int numerator)
 {}
 
 Rational& Rational::operator+=(const Rational& rhs) {
-	num = num * rhs.den + den * rhs.num;
-	den = den * rhs.den;
-	int nod = gcd(num, den);
-	num /= nod;
-	den /= nod;
+	if (((num != 0) && (den != 0)) || ((rhs.num != 0) && (rhs.den != 0))) {
+		num = num * rhs.den + den * rhs.num;
+		den = den * rhs.den;
+		int nod = gcd(num, den);
+		num /= nod;
+		den /= nod;
+	}
+	else if (((num == 0) && (den == 0))) {
+		num = rhs.num;
+		den = rhs.den;
+	}
+	minus();
 	return *this;
 }
 
@@ -87,6 +102,7 @@ Rational& Rational::operator-=(const Rational& rhs) {
 	int nod = gcd(num, den);
 	num /= nod;
 	den /= nod;
+	minus();
 	return *this;
 }
 
@@ -102,6 +118,7 @@ Rational& Rational::operator*=(const Rational& rhs) {
 	int nod = gcd(num, den);
 	num /= nod;
 	den /= nod;
+	minus();
 	return *this;
 }
 
@@ -117,6 +134,7 @@ Rational& Rational::operator/=(const Rational& rhs) {
 	int nod = gcd(num, den);
 	num /= nod;
 	den /= nod;
+	minus();
 	return *this;
 }
 
@@ -147,13 +165,11 @@ std::istream& Rational::ReadFrom(std::istream& istrm) {
 			else {
 				num = numerator;
 				den = denominator;
-				if (den < 0) {
-					den = abs(den);
-					num *= -1;
-				}
+				
 				int nod = gcd(num, den);
 				num /= nod;
 				den /= nod;
+				minus();
 			}
 		}
 	}
