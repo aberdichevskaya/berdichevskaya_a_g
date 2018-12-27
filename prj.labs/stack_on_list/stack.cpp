@@ -3,18 +3,17 @@
 #include "stack.h"
 
 StackOnList::StackOnList(const StackOnList& rhs) {
-	Node* copy = rhs.data_;
+	Node* p_rhs = rhs.data_;
 	data_ = new Node;
-	Node* p = data_;
-	while (copy != nullptr) {
-		p->data = copy->data;
-		copy = copy->next;
-		if (copy != nullptr) {
-			p->next = new Node;
-			p = p->next;
+	Node* p_this = data_;
+	while (p_rhs != nullptr) {
+		p_this->data = p_rhs->data;
+		p_rhs = p_rhs->next;
+		if (p_rhs != nullptr) {
+			p_this->next = new Node;
+			p_this = p_this->next;
 		}
 	}
-	data_ = p;
 }
 
 StackOnList::~StackOnList() {
@@ -32,7 +31,7 @@ void StackOnList::Pop() noexcept {
 }
 
 bool StackOnList::IsEmpty() {
-	return (data_);
+	return (data_ != nullptr);
 }
 
 void StackOnList :: Clear() noexcept {
@@ -42,10 +41,12 @@ void StackOnList :: Clear() noexcept {
 }
 
 int StackOnList::Top() {
-	if (IsEmpty()) {
+	if (data_ == nullptr) {
 		throw std::logic_error("Try to get top from empty stack");
 	}
-	return data_->data;
+	else {
+		return data_->data;
+	}
 }
 
 bool StackOnList::operator==(const StackOnList& obj) {
