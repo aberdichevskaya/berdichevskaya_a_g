@@ -14,7 +14,7 @@ Complex::Complex(const double real)
 
 
 bool Complex::operator==(const Complex& rhs) {
-	return ((re == rhs.re) && (im == rhs.im));
+	return (((re - rhs.re) <= 10e-6) && ((im - rhs.im) <= 10e-6));
 }
 
 bool Complex::operator!=(const Complex& rhs) {
