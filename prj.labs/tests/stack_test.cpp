@@ -1,4 +1,5 @@
 #include <iostream>
+#include <conio.h>
 
 #include "stack.h"
 
@@ -23,5 +24,6 @@ int main() {
 	catch (std::logic_error& exc) {
 		std::cout << "Logic error: " << exc.what() << std:: endl;
 	}
+	_getch();
 	return 0;
 }
