@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <conio.h>
 
 #include "complex.h"
 
@@ -27,12 +28,13 @@ int main() {
 	Complex a(3.5);
 	Complex b(2.1, 7.9);
 	double c(4.9);
-	std::cout << "a = " << a << ", b = " << b << std::endl;
+	std::cout << "a = " << a << ", b = " << b  << ", c = " << c << std::endl;
 	std::cout << "a + b = " << a + b << std::endl;
 	std::cout << "b - a = " << b - a << std::endl;
 	b += a;
 	std::cout << "b + a = " << b << std::endl;
 	a *= c;
 	std::cout << "a * c = " << a << std::endl;
+	_getch();
 	return 0;
 }
