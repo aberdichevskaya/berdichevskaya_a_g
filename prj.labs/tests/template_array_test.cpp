@@ -1,4 +1,6 @@
 #include <iostream>
+#include <conio.h>
+#include <string>
 
 #include "template_array.h"
 
@@ -29,4 +31,13 @@ int main() {
 	catch (std::exception& ex) {
 		std::cout << ex.what();
 	}
+	
+	TemplateDinamicArray<std::string> k;
+	k.resize(3);
+	TemplateDinamicArray<std::string> l(k);
+	if (l == k) {
+		std::cout << "l equals k" << std::endl;
+	}
+	_getch();
+	return 0;
 }
