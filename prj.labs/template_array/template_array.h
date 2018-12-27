@@ -56,7 +56,7 @@ TemplateDinamicArray<T>::~TemplateDinamicArray() {
 template <typename T>
 bool TemplateDinamicArray<T>::operator==(const TemplateDinamicArray& rhs) {
 	bool rez(true);
-	if (*this != rhs) {
+	if (this != &rhs) {
 		if (size != rhs.size) {
 			rez = false;
 		}
@@ -116,27 +116,17 @@ int TemplateDinamicArray<T>::GetSize() const {
 
 template <typename T>
 void TemplateDinamicArray<T>::resize(int newSize) {
-	if (newSize != size) {
-		if (newSize < size) {
-			throw std::logic_error("New size must be bigger than old size");
-		}
-		else {
-			T* res = new T[size];
-			for (int i = 0; i < size; i += 1) {
-				res[i] = data[i];
-			}
-			delete[] data;
-			data = new T[newSize];
-			for (int i = 0; i < size; i += 1) {
-				data[i] = res[i];
-			}
-			delete[] res;
-			for (int i = size; i < newSize; i += 1) {
-				data[i] = 0;
-			}
-			size = newSize;
-		}
+	T* res = new T[size];
+	for (int i = 0; i < size; i += 1) {
+		res[i] = data[i];
 	}
+	delete[] data;
+	data = new T[newSize];
+	for (int i = 0; i < size; i += 1) {
+		data[i] = res[i];
+	}
+	delete[] res;
+	size = newSize;
 }
 #endif // !TEMPLATE_ARRAY_H
 
