@@ -1,5 +1,6 @@
 #include <iostream>
 #include<sstream>
+#include <conio.h>
 
 #include "rational.h"
 
@@ -23,7 +24,8 @@ int main() {
 	testParse("{4/7");
 
 	Rational w;
-	w += Rational(1, 1);
+	Rational k(1, 1);
+	w += k;
 	Rational a(1, 2);
 	Rational b(-2, 4);
 	Rational c(3, 5);
@@ -34,7 +36,7 @@ int main() {
 	try {
 		Rational d(5, 0);
 	}
-	catch (std::out_of_range& exc) {
+	catch (std::out_of_range exc) {
 		std::cout << exc.what() << std::endl;
 	}
 
@@ -42,8 +44,9 @@ int main() {
 		std::string a("{6/0}");
 		testParse(a);
 	}
-	catch (std::out_of_range& exc) {
+	catch (std::out_of_range exc) {
 		std::cout << exc.what() << std::endl;
 	}
+	_getch();
 	return 0;
 }
