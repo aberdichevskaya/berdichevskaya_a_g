@@ -30,6 +30,7 @@ public:
 	std::istream& ReadFrom(std::istream& istrm);
 
 	int gcd(int n, int d);
+	void minus();
 };
 
 Rational operator+(const Rational& lhs, const Rational& rhs);
