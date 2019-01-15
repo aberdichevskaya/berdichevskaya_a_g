@@ -9,7 +9,9 @@ field_size::field_size(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::field_size) {
     ui->setupUi(this);
+	this->resize(250, 200);
     ui->warning->setText("Введи числа от 1 до 10!");
+	ui->warning->resize(200, 30);
 }
 
 field_size::~field_size() {
@@ -29,4 +31,5 @@ void field_size::on_start_clicked() {
         H = ui->high->text().toInt();
         W = ui-> weight->text().toInt();
     }
+	accept();
 }
