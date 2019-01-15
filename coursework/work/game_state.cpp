@@ -1,14 +1,12 @@
 #include <ctime>
 #include <QTextStream>
-#include <QDebug>
-#include <QMessageBox>
 #include <QString>
 #include <QPair>
 
 #include "game_state.h"
 
 game_state::game_state() {
-    newGame(5, 5);
+    newGame(4, 4);
 }
 
 void game_state::mapResize(int h, int w) {
@@ -20,7 +18,7 @@ void game_state::mapResize(int h, int w) {
 
 void game_state::newGame(int h, int w) {
     mapResize(h, w);
-
+	last = qMakePair(-1, -1);
     state = first_move; //Первым ходит первый игрок
     srand(time(0));
     int mult = h*w;
@@ -31,7 +29,7 @@ void game_state::newGame(int h, int w) {
     }
 }
 
-QString game_state::getStateString() {
+QString game_state::getStateString() { //Строка состояний игры
     QString a = " ";
     switch(state) {
     case(first_move):
@@ -62,38 +60,35 @@ QString game_state::getStateString() {
     return a;
 }
 
-QString game_state::makeMove(int row, int col) {
-    QString a = " ";
-    if (Map[row][col] == 0) {
-        a = "Ошибка! Эта клетка уже использована!";
-    }
+QString game_state::makeMove(int row, int col) { //совершение хода
+    QString a = "";
     switch(state) {
 
     case(first_move):
-        if(row==last.first) {
+        if((row==last.first) || (last.first == -1)) {
         first_score += Map[row][col];
-        moves.push_back("Первый игрок выбрал число " + QString::number(Map[row][col]));
         Map[row][col] = 0;
         state = second_move;
         a = "Первый игрок сделал ход";
+		last = qMakePair(row, col);
         }
         else {
-            a = "Ты должен выбрать клетку в этой вертикали!";
+            a = "Ты должен выбрать клетку в этой горизонтали!";
         }
         ret1 = first_score;
         ret2 = -1;
         break;
 
     case(second_move):
-        if (col == last.second) {
+        if ((col == last.second) || (last.second == -1)) {
         second_score += Map[row][col];
-        moves.push_back("Второй игрок выбрал число " + QString::number(Map[row][col]));
         Map[row][col] = 0;
         state = first_move;
         a = "Второй игрок сделал ход";
+		last = qMakePair(row, col);
         }
         else {
-            a = "Ты должен выбрать клетку в этой горизонтали!";
+            a = "Ты должен выбрать клетку в этой вертикали!";
         }
         ret2 = second_score;
         ret1 = -1;
@@ -105,29 +100,28 @@ QString game_state::makeMove(int row, int col) {
         ret2 = -1;
         break;
     }
-    last = qMakePair(row, col);
     checkGameOver();
     return a;
 }
 
 
-QString game_state::checkGameOver() {
+QString game_state::checkGameOver() { //проверка на возможность совершить следующий ход
     int a = 0;
     int o = 0;
-    QString r = "  ";
+    QString r = "";
     switch (state) {
     case(second_move):
-        o = last.first;
+        o = last.second;
         for (int i = 0; i < Map[o].size(); ++i) {
-            if (Map[o][i] != 0) {
+            if (Map[i][o] != 0) {
                 a += 1;
             }
         }
         break;
     case(first_move):
-        o = last.second;
+        o = last.first;
         for (int i = 0; i < Map.size(); ++i) {
-            if (Map[i][o] != 0) {
+            if (Map[o][i] != 0) {
                 a += 1;
             }
         }
