@@ -1,3 +1,6 @@
+#include <QString>
+#include <QMessageBox>
+
 #include "cells.h"
 
 // Параметры:
@@ -11,13 +14,15 @@ Cells::Cells(const char* text, QWidget* parent, int row, int col,game_state& gam
     , row(row)
     , col(col)
     , game(&game) {
-  if(text[0] == '0')
-    setEnabled(false);
 }
 
 // При нажатии на клетку
 void Cells::slotCellClicked() {
-  qDebug() << "row = " << row << "   col = " << col; //координаты нажатия
-  setText( game->makeMove(row, col) );
-  setEnabled(false);
+  QString a = game->makeMove(row, col);
+  if ((a == "Первый игрок сделал ход") || (a == "Второй игрок сделал ход")) {
+	  setEnabled(false);
+  }
+  else {
+	  QMessageBox::warning(this, "Аккуратнее!", a);
+  }
 }
