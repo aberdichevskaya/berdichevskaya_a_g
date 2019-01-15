@@ -1,9 +1,4 @@
 
-
-//иконки не отображаются
-
-
-
 #include <QWidget>
 #include <QGraphicsView>
 #include <QGraphicsScene>
@@ -21,27 +16,48 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
-void MainWindow::on_getSize_clicked() {
+void MainWindow::on_getSize_clicked() { //вызов окна для изменения высоты и ширины
     field_size gt(this);
     gt.setModal(true);
     gt.exec();
     h = gt.H;
     w = gt.W;
     newGame();
+	ui->first_score->setText("0");
+	ui->second_score->setText("0");
 }
 
-void MainWindow::status_string() {
+void MainWindow::status_string() { //вид поля после совершения хода
+	this->resize(700, 500);
     QString b = game.getStateString();
     ui->game_status->setText(b);
+	ui->game_status->resize(250, 30);
+	int windowSize = this->geometry().width();
+	QRect rect = ui->game_status->geometry();
     if(game.ret1 != -1) {
-    ui->first_score->setText(QString::number(game.ret1));
+		ui->first_score->setText(QString::number(game.ret1)); 
+		rect = ui->first_score->geometry();
+		rect.moveRight(rect.width() + 50);
+		rect.moveTop(75);
+		ui->first_score->setGeometry(rect);
     }
     if(game.ret2 != -1) {
-        ui->first_score->setText(QString::number(game.ret1));
-    }
+        ui->second_score->setText(QString::number(game.ret2));
+		rect = ui->second_score->geometry();
+		rect.moveLeft(windowSize - rect.width() - 200);
+		rect.moveTop(75);
+		ui->second_score->setGeometry(rect);
+	}
+	rect = ui->game_status->geometry();
+	rect.moveLeft(windowSize - rect.width() - 10);
+	ui->game_status->setGeometry(rect);
+
+	rect = ui->getSize->geometry();
+	rect.moveRight(rect.width() + 10);
+	ui->getSize->setGeometry(rect);
 }
 
-void MainWindow::resize_buttons() {
+void MainWindow::resize_buttons() { //задание размера ассиву клеток
     cells_.resize(h);
     for(int i = 0; i < h; i+=1) {
         cells_[i].resize(w);
@@ -52,10 +68,10 @@ void MainWindow::update_buttons() {
     int cellSize_w = 200 / w; // ширина кнопки
     int cellSize_h = 300 / h; // высота кнопки
     int cellSpase = 6; // Расстояние между кнопками
-    int topSpace = 80; // Отступ сверху
-    int leftSpace = 50; // Отступ слева
+    int topSpace = 90; // Отступ сверху
+    int leftSpace = 180; // Отступ слева
     int randOffset = 5;
-    for (int i; i < cells_.size(); i += 1) {
+    for (int i = 0; i < cells_.size(); i += 1) {
         for (int j = 0; j < cells_[i].size(); j += 1) {
             if (cells_[i][j] != NULL) {
                 delete cells_[i][j];
@@ -68,20 +84,23 @@ void MainWindow::update_buttons() {
             cells_[i][j] = new Cells(game.getCell(i, j), this, i, j, game);
             // Задаём размеры и положение кнопки
             cells_[i][j]->setGeometry(
-                (cellSize_w + cellSpase) * j + leftSpace + (rand() % randOffset),
-                (cellSize_h + cellSpase) * i + topSpace + (rand() % randOffset),
+                (cellSize_w + cellSpase) * j + leftSpace ,
+                (cellSize_h + cellSpase) * i + topSpace,
                 cellSize_w,
                 cellSize_h
             );
             cells_[i][j]->setVisible(true);
-            connect(cells_[i][j], SIGNAL(clicked()), cells_[i][j], SLOT(slotCellClicked()));
+			cells_[i][j]->setText(QString::number(game.Map[i][j]));
+            connect(cells_[i][j], SIGNAL(clicked()), cells_[i][j], SLOT(slotCellClicked())); //нажатие на каждую клетку будет вызывать слот status_string
             connect(cells_[i][j], SIGNAL(clicked()), this, SLOT(status_string()));
         }
     }
 }
 
-void MainWindow::newGame() {
+void MainWindow::newGame() { //новая игра
     game.newGame(h, w);
+	game.ret1 = 0;
+	game.ret2 = 0;
     status_string();
     update_buttons();
 }
@@ -101,8 +120,7 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 
-void MainWindow::on_exit_game_triggered() {
+void MainWindow::on_exit_game_triggered() { //выход из игры
     QApplication::quit();
 }
-
 
