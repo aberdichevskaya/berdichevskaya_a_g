@@ -14,8 +14,8 @@ class field_size : public QDialog {
 public:
     explicit field_size(QWidget *parent = 0);
     ~field_size();
-    int H{0};
-    int W{0};
+    int H{4};
+    int W{4};
 
 private slots:
     void on_start_clicked();
