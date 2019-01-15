@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>598</width>
+    <height>395</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,8 +39,8 @@
      <rect>
       <x>10</x>
       <y>210</y>
-      <width>71</width>
-      <height>21</height>
+      <width>121</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
@@ -50,24 +50,11 @@
    <widget class="QTextEdit" name="game_status">
     <property name="geometry">
      <rect>
-      <x>90</x>
+      <x>180</x>
       <y>210</y>
-      <width>251</width>
+      <width>200</width>
       <height>20</height>
      </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="show_moves">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>0</y>
-      <width>211</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Просмотреть ходы игроков</string>
     </property>
    </widget>
   </widget>
@@ -76,17 +63,15 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
-     <height>17</height>
+     <width>598</width>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
     <property name="title">
      <string>Меню</string>
     </property>
-    <addaction name="start_new_game"/>
     <addaction name="exit_game"/>
-    <addaction name="new_game"/>
    </widget>
    <addaction name="menu"/>
   </widget>
@@ -97,8 +82,6 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="start_new_game"/>
-   <addaction name="new_game"/>
    <addaction name="exit_game"/>
   </widget>
   <widget class="QStatusBar" name="statusBar">
@@ -108,8 +91,8 @@
   </widget>
   <action name="start_new_game">
    <property name="icon">
-    <iconset>
-     <normaloff>img/игра.png</normaloff>img/игра.png</iconset>
+    <iconset resource="res.qrc">
+     <normaloff>:/new/prefix1/img/console.png</normaloff>:/new/prefix1/img/console.png</iconset>
    </property>
    <property name="text">
     <string>Новая игра</string>
@@ -117,8 +100,8 @@
   </action>
   <action name="exit_game">
    <property name="icon">
-    <iconset>
-     <normaloff>img/выход.png</normaloff>img/выход.png</iconset>
+    <iconset resource="res.qrc">
+     <normaloff>:/new/prefix1/img/emergency-exit.png</normaloff>:/new/prefix1/img/emergency-exit.png</iconset>
    </property>
    <property name="text">
     <string>Завершить игру</string>
@@ -126,8 +109,8 @@
   </action>
   <action name="new_game">
    <property name="icon">
-    <iconset>
-     <normaloff>img/ход назад.png</normaloff>img/ход назад.png</iconset>
+    <iconset resource="res.qrc">
+     <normaloff>:/new/prefix1/img/media-step-back-arrow.png</normaloff>:/new/prefix1/img/media-step-back-arrow.png</iconset>
    </property>
    <property name="text">
     <string>Ход назад</string>
@@ -135,6 +118,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
 </ui>
