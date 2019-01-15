@@ -20,10 +20,9 @@ private:
     int first_score {0};
     int second_score{0};
     State state;
-    std::vector<QString> moves;
-    std::vector<std::vector<int>> Map;
-    QPair <int,int> last;
+	QPair <int, int> last = qMakePair(-1, -1);
 public:
+	std::vector<std::vector<int>> Map;
     game_state();
     void mapResize(int h, int w); // Присвоение карте размерa
     void newGame(int h, int w); // Новая игра без пересоздания объекта
