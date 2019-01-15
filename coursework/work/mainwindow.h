@@ -22,8 +22,8 @@ public:
     ~MainWindow();
     void resize_buttons();
     void exit_application();
-    int h{0};
-    int w{0};
+    int h{4};
+    int w{4};
 
 private slots:
     void status_string();
