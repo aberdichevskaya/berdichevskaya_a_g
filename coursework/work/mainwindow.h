@@ -10,32 +10,35 @@
 #include "game_state.h"
 
 namespace Ui {
-class MainWindow;
+	class MainWindow;
 }
 
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
-    void resize_buttons();
-    void exit_application();
-    int h{4};
-    int w{4};
+	explicit MainWindow(QWidget *parent = 0);
+	~MainWindow();
+	void resize_buttons();
+	void exit_application();
+	int h{ 4 };
+	int w{ 4 };
 
 private slots:
-    void status_string();
-    void newGame();
-    void on_getSize_clicked();
-    void on_exit_game_triggered();
+	void status_string();
+	void newGame();
+	void on_getSize_clicked();
+	void on_exit_game_triggered();
+	void on_new_new_game_triggered();
+	void on_saveGame_clicked();
+	void on_loadGame_clicked();
 
 private:
-    Ui::MainWindow *ui;
-    game_state game;
-    std::vector<std::vector<Cells*>> cells_;
-    void update_buttons();
+	Ui::MainWindow *ui;
+	game_state game;
+	std::vector<std::vector<Cells*>> cells_;
+	void update_buttons();
 };
 
 #endif // MAINWINDOW_H
