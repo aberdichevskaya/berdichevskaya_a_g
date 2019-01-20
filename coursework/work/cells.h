@@ -6,7 +6,7 @@
 #include <QDebug>
 #include "game_state.h"
 
-//клетка поля
+//клетки игрового поля
 class Cells : public QPushButton {
   Q_OBJECT
 
