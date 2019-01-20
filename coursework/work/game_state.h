@@ -6,37 +6,37 @@
 #include <vector>
 #include <QPair>
 #include <QString>
-
-enum State {
-	first_move,
-	second_move,
-	first_win,
-	second_win,
-	draw
+//здесь описывается состояние и процесс игры
+enum State { //список возможных состояний игры
+	first_move, //ход первого игрока
+	second_move, //ход второго игрока
+	first_win, //победа первого игрока
+	second_win, //победа второго игрока
+	draw //ничья
 };
 
 class game_state {
 private:
-	int first_score{ 0 };
-	int second_score{ 0 };
-	State state;
-	QPair <int, int> last = qMakePair(-1, -1);
+	int first_score{ 0 }; //счет первого игрока
+	int second_score{ 0 }; //счет второго игрока
+	State state; //состояние игры
+	QPair <int, int> last = qMakePair(-1, -1); //клетка, в которую был совершён последний ход
 public:
-	std::vector<std::vector<int>> Map;
-	std::vector<std::vector<int>> Moves;
-	game_state();
+	std::vector<std::vector<int>> Map; //карта игры, заполненная случайными числами
+	std::vector<std::vector<int>> Moves; //карта игры, на которой отмечаются уже использованные клетки
+	game_state(); //конструктор
 	void mapResize(int h, int w); // Присвоение карте размерa
 	void newGame(int h, int w); // Новая игра без пересоздания объекта
-	QString getStateString(); //состояниe игры
+	QString getStateString(); //состояние игрового поля 
 	QString makeMove(int row, int col);  // Совершаем ход
-	QString checkGameOver();  // Проверяем на окончание игры
+	QString checkGameOver();  // Проверка на окончание игры
 	const char* getCell(int i, int j);   // Состояние ячейки
 	void save(QString fileName, int h, int w); //Сохранение игры
-	void load(QString fileName);
-	int ret1{ 0 };
-	int ret2{ 0 };
-	int hh{ 4 };
-	int ww{ 4 };
+	void load(QString fileName); //загрузка игры из файла
+	int ret1{ 0 }; //счет первого для вывода на экран
+	int ret2{ 0 }; //счет второго для вывода на экран
+	int hh{ 4 }; //размер
+	int ww{ 4 }; //размер
 };
 
 #endif // GAME_STATE_H
