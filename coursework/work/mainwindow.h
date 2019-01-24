@@ -28,7 +28,7 @@ public:
 private slots:
 	void status_string(); //состояние игрового поля после совершения каждого хода
 	void newGame(); //запуск новой игры без перезапуска программы
-	void on_getSize_clicked(); //вызов диалогового окна для ввода нового размера
+	void on_getSize_triggered(); //вызов диалогового окна для ввода нового размера
 	void on_exit_game_triggered(); //выход из игры
 	void on_new_new_game_triggered(); //перезапуск игры
 	void on_saveGame_clicked(); //сохранение текущей игры
