@@ -18,20 +18,15 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
-void MainWindow::on_getSize_clicked() {
-    if(ui->hight->text().toInt() > 10 || ui-> weight->text().toInt() > 10 ) {
-        QMessageBox::critical(this, "Ошибка!", "Слишком большое поле, введи числа, не превышающие 10");
-    }
-    else if (ui->hight->text().toInt() < 0 || ui-> weight->text().toInt() < 0 ) {
-        QMessageBox::critical(this, "Ошибка!", "Так не бывает, введи числа больше 0");
-    }
-    else {
-        w = ui-> weight->text().toInt();
-        h = ui->hight->text().toInt();
-    }
+void MainWindow::on_getSize_triggered() {
+    field_size gt(this);
+    gt.setModal(true);
+    gt.exec();
+    h = gt.H;
+    w = gt.W;
     newGame();
-	ui->first_score->setText("0");
-	ui->second_score->setText("0");
+    ui->first_score->setText("0");
+    ui->second_score->setText("0");
 }
 
 void MainWindow::status_string() { //вид поля после совершения хода
@@ -59,11 +54,6 @@ void MainWindow::status_string() { //вид поля после совершен
 	rect.moveLeft(windowSize - rect.width() - 10);
 	ui->game_status->setGeometry(rect);
 
-    ui->getSize->resize(135, 30);
-    rect = ui->getSize->geometry();
-    rect.moveRight(145);
-	ui->getSize->setGeometry(rect);
-
     ui->saveGame->resize(250, 30);
     rect = ui->game_status->geometry();
     rect.moveBottom(320);
@@ -72,14 +62,6 @@ void MainWindow::status_string() { //вид поля после совершен
     rect.moveBottom(370);
     ui->loadGame->setGeometry(rect);
 
-    ui->hight->resize(30,30);
-    ui->weight->resize(30,30);
-    rect = ui->hight->geometry();
-    rect.moveRight(55);
-    rect.moveTop(255);
-    ui->hight->setGeometry(rect);
-    rect.moveRight(125);
-    ui->weight->setGeometry(rect);
 }
 
 void MainWindow::resize_buttons() { //задание размера ассиву клеток
