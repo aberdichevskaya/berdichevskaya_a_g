@@ -40,19 +40,6 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="getSize">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>210</y>
-      <width>121</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Изменить размер</string>
-    </property>
-   </widget>
    <widget class="QTextEdit" name="game_status">
     <property name="geometry">
      <rect>
@@ -89,26 +76,6 @@
      <string>Загрузить игру</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="hight">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>160</y>
-      <width>16</width>
-      <height>20</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="weight">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>160</y>
-      <width>21</width>
-      <height>20</height>
-     </rect>
-    </property>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -125,6 +92,7 @@
     </property>
     <addaction name="exit_game"/>
     <addaction name="action"/>
+    <addaction name="getSize"/>
    </widget>
    <addaction name="menu"/>
   </widget>
@@ -136,6 +104,7 @@
     <bool>false</bool>
    </attribute>
    <addaction name="new_new_game"/>
+   <addaction name="getSize"/>
    <addaction name="exit_game"/>
   </widget>
   <widget class="QStatusBar" name="statusBar">
@@ -171,8 +140,23 @@
    </property>
   </action>
   <action name="action">
+   <property name="icon">
+    <iconset>
+     <normalon>:/new/prefix1/img/media-step-back-arrow.png</normalon>
+    </iconset>
+   </property>
    <property name="text">
     <string>Новая игра</string>
+   </property>
+  </action>
+  <action name="getSize">
+   <property name="icon">
+    <iconset>
+     <normalon>:/new/prefix1/img/console.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Изменить размер</string>
    </property>
   </action>
  </widget>
